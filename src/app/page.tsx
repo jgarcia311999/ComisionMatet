@@ -12,7 +12,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-white text-gray-900 font-sans flex justify-center">
+    <main className="min-h-[100svh] bg-white text-gray-900 font-sans flex justify-center pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
       <div className="w-full max-w-md px-4 py-6 flex flex-col justify-between">
         {/* Header */}
         <header className="px-4">
