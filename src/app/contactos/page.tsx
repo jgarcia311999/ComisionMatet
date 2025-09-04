@@ -16,7 +16,7 @@ export default function Contactos() {
               <br />
               Matet, 12415
             </span>
-            <a href="https://matet-es-fiesta.vercel.app/" className="underline">
+            <a href="https://matet-es-fiesta.vercel.app/" className="underline ">
               Visit web →
             </a>
           </div>
