@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -28,18 +29,18 @@ export default function Home() {
             {[
               { title: "Ideas", caption: "Propuestas de actividades" },
               { title: "Quehaceres", caption: "Tareas pendientes" },
-              { title: "Horarios", caption: "Eventos y agenda" },
-              { title: "Contactos", caption: "Personas y roles" },
+              { title: "Horarios", caption: "Eventos y agenda", href: "/horarios"  },
+              { title: "Contactos", caption: "Personas y roles", href: "/contactos" },
               { title: "Próximamente", caption: "Novedades" },
             ].map((item) => (
               <li key={item.title}>
-                <a
-                  href="#"
-                  className="block px-4 py-5 text-white hover:bg-blue-400 active:bg-blue-700 transition-colors"
+                <Link
+                  href={item.href || "#"}
+                  className="block px-4 py-5 text-white transition-colors"
                 >
                   <div className="text-[34px] leading-none font-semibold">{item.title}</div>
                   <div className="text-[10px] mt-2 opacity-90 uppercase tracking-wide">{item.caption}</div>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
