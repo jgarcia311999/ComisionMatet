@@ -16,7 +16,7 @@ export default function Home() {
       <div className="w-full max-w-sm px-4 pt-5 flex flex-col min-h-[100svh]">
         {/* HEADER TITLE */}
         <header className="select-none">
-          <h1 className="text-blue-600 font-extrabold uppercase tracking-widest leading-none text-[56px]">MATET</h1>
+          <h1 className="text-blue-700 font-extrabold uppercase tracking-widest leading-none text-[56px]">MATET</h1>
         </header>
 
         {/* SEARCH BAR (fake, como en el mock) */}

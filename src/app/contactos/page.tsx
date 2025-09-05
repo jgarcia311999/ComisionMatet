@@ -14,7 +14,7 @@ export default function Contactos() {
       <div className="w-full max-w-sm px-4 pt-5 flex flex-col min-h-[100svh]">
         {/* Header */}
         <header className="select-none">
-          <h1 className="text-blue-600 font-extrabold uppercase tracking-widest leading-none text-[56px]">CONTACT.</h1>
+          <h1 className="text-blue-700 font-extrabold uppercase tracking-widest leading-none text-[56px]">CONTACT.</h1>
         </header>
         {/* SEARCH BAR (decorativa) */}
         <div className="mt-3 border border-blue-600">
