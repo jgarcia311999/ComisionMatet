@@ -83,13 +83,23 @@ export default function Home() {
 
         <section className="mt-4 overflow-hidden">
           <div className="flex space-x-4 overflow-x-auto pb-4">
-            {items.map((item) => (
-              <div key={item.title} className="flex-shrink-0 w-40 h-40 border rounded-lg overflow-hidden">
-                <Link href={item.href || "#"} className="w-full h-full flex flex-col justify-center items-center hover:bg-gray-50 transition-colors">
-                  <div className="text-lg font-semibold text-center">{item.title}</div>
-                </Link>
-              </div>
-            ))}
+            {items.map((item, idx) => {
+              const colors = [
+                "bg-pink-100",
+                "bg-blue-100",
+                "bg-green-100",
+                "bg-yellow-100",
+                "bg-purple-100"
+              ];
+              const color = colors[idx % colors.length];
+              return (
+                <div key={item.title} className={`flex-shrink-0 w-40 h-40 border rounded-lg overflow-hidden ${color}`}>
+                  <Link href={item.href || "#"} className="w-full h-full flex flex-col justify-center items-center hover:bg-opacity-80 transition-colors">
+                    <div className="text-lg font-semibold text-center">{item.title}</div>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
           <div className="text-center text-xs py-2 text-gray-500">
             <a href="#" className="underline underline-offset-2">
