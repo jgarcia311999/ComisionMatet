@@ -1,7 +1,14 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Contactos() {
+  const [revealed, setRevealed] = useState<Record<string, boolean>>({});
+  const onPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>, key: string) => {
+    if (!revealed[key]) {
+      e.preventDefault();
+      setRevealed((prev) => ({ ...prev, [key]: true }));
+    }
+  };
   return (
     <main className="min-h-[100svh] bg-white text-gray-900 font-sans flex justify-center pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
       <div className="w-full max-w-sm px-4 pt-5 flex flex-col min-h-[100svh]">
@@ -21,14 +28,29 @@ export default function Contactos() {
           {/* Lista de contactos */}
           <ul>
             {[
-              { nombre: "Jesús García", rol: "Presidente" },
-              { nombre: "María López", rol: "Tesorería" },
-              { nombre: "Raúl Pérez", rol: "Logística" },
-              { nombre: "Lucía Martínez", rol: "Comunicación" },
+              { nombre: "Ana Gomez", rol: "Presidente", telefono: "6XX XXX XX" },
+              { nombre: "Jesús García", rol: "Vicepresidente", telefono: "6XX XXX XX" },
+              { nombre: "Luca Davide", rol: "Tesorero", telefono: "6XX XXX XX" },
+              
             ].map((contacto) => (
               <li key={contacto.nombre} className="border-t border-blue-600 first:border-t-0">
                 <div className="block px-2 py-3 hover:bg-blue-50 transition-colors">
-                  <div className="text-[18px] leading-none font-semibold text-blue-700">{contacto.nombre}</div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-[18px] leading-none font-semibold text-blue-700">{contacto.nombre}</div>
+                    <a
+                      href={`tel:${contacto.telefono.replace(/\s+/g, "")}`}
+                      onClick={(e) => onPhoneClick(e, contacto.nombre)}
+                      className="inline-flex items-center gap-1 text-blue-700 font-semibold"
+                      aria-label={`Llamar a ${contacto.nombre}`}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.1.36 2.29.55 3.58.55a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.3 22 2 13.7 2 3a1 1 0 0 1 1-1h4.51a1 1 0 0 1 1 1c0 1.29.19 2.48.55 3.58a1 1 0 0 1-.24 1.01l-2.2 2.2z"/>
+                      </svg>
+                      <span className={`text-[13px] tracking-wide ${revealed[contacto.nombre] ? "blur-0" : "blur-sm select-none"}`}>
+                        {contacto.telefono}
+                      </span>
+                    </a>
+                  </div>
                   <div className="text-[11px] mt-1 uppercase tracking-wide text-blue-500">{contacto.rol}</div>
                 </div>
               </li>
