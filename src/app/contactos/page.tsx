@@ -14,11 +14,11 @@ export default function Contactos() {
       <div className="w-full max-w-sm px-4 pt-5 flex flex-col min-h-[100svh]">
         {/* Header */}
         <header className="select-none">
-          <h1 className="text-blue-600 font-extrabold uppercase tracking-widest leading-none text-[56px]">CONTACTS</h1>
+          <h1 className="text-blue-600 font-extrabold uppercase tracking-widest leading-none text-[56px]">CONTACT.</h1>
         </header>
         {/* SEARCH BAR (decorativa) */}
         <div className="mt-3 border border-blue-600">
-          <div className="flex items-center justify-between text-[11px] uppercase tracking-wide px-2 py-1 text-blue-700">
+          <div className="flex items-center justify-between text-[16px] uppercase tracking-wide px-3 py-1 text-blue-700">
             <span>Search</span>
             <button aria-label="clear" className="font-medium">×</button>
           </div>
@@ -36,7 +36,7 @@ export default function Contactos() {
               <li key={contacto.nombre} className="border-t border-blue-600 first:border-t-0">
                 <div className="block px-2 py-3 hover:bg-blue-50 transition-colors">
                   <div className="flex items-center justify-between">
-                    <div className="text-[18px] leading-none font-semibold text-blue-700">{contacto.nombre}</div>
+                    <div className="text-[22px] leading-none font-semibold text-blue-700">{contacto.nombre}</div>
                     <a
                       href={`tel:${contacto.telefono.replace(/\s+/g, "")}`}
                       onClick={(e) => onPhoneClick(e, contacto.nombre)}
@@ -46,12 +46,12 @@ export default function Contactos() {
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.1.36 2.29.55 3.58.55a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.3 22 2 13.7 2 3a1 1 0 0 1 1-1h4.51a1 1 0 0 1 1 1c0 1.29.19 2.48.55 3.58a1 1 0 0 1-.24 1.01l-2.2 2.2z"/>
                       </svg>
-                      <span className={`text-[13px] tracking-wide ${revealed[contacto.nombre] ? "blur-0" : "blur-sm select-none"}`}>
+                      <span className={`text-[16px] tracking-wide ${revealed[contacto.nombre] ? "blur-0" : "blur-sm select-none"}`}>
                         {contacto.telefono}
                       </span>
                     </a>
                   </div>
-                  <div className="text-[11px] mt-1 uppercase tracking-wide text-blue-500">{contacto.rol}</div>
+                  <div className="text-[14px] mt-1 uppercase tracking-wide text-blue-500">{contacto.rol}</div>
                 </div>
               </li>
             ))}
@@ -59,7 +59,7 @@ export default function Contactos() {
           </ul>
           {/* FOOTER ICONOS */}
           <footer className="mt-8 pb-6">
-            <div className="flex items-center justify-center gap-6 text-blue-700">
+            <div className="flex items-center justify-center gap-10 text-blue-700 text-[20px]">
               <a href="#" aria-label="Facebook" className="hover:opacity-80">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.49 17.52 2 11.94 2 6.37 2 1.88 6.49 1.88 12.06c0 4.99 3.64 9.13 8.4 9.94v-7.03H7.9v-2.9h2.38V9.41c0-2.35 1.4-3.64 3.54-3.64 1.03 0 2.1.18 2.1.18v2.31h-1.18c-1.16 0-1.52.72-1.52 1.46v1.76h2.59l-.41 2.9h-2.18V22c4.76-.81 8.4-4.95 8.4-9.94z"/></svg>
               </a>

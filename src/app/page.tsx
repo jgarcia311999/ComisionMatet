@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 import Link from "next/link";
@@ -22,7 +21,7 @@ export default function Home() {
 
         {/* SEARCH BAR (fake, como en el mock) */}
         <div className="mt-3 border border-blue-600">
-          <div className="flex items-center justify-between text-[11px] uppercase tracking-wide px-2 py-1 text-blue-700">
+          <div className="flex items-center justify-between text-[16px] uppercase tracking-wide px-3 py-1 text-blue-700">
             <span>Search</span>
             <button aria-label="clear" className="font-medium">×</button>
           </div>
@@ -35,7 +34,7 @@ export default function Home() {
               <li key={it.label} className="border-t border-blue-600 first:border-t-0">
                 <Link
                   href={it.href}
-                  className="block w-full px-2 py-3 uppercase tracking-wide text-blue-700 font-semibold hover:bg-blue-50"
+                  className="block w-full px-4 py-5 uppercase tracking-wide text-blue-700 font-semibold hover:bg-blue-50 text-[28px]"
                 >
                   {it.label}
                 </Link>
@@ -48,7 +47,7 @@ export default function Home() {
 
         {/* FOOTER ICONS */}
         <footer className="mt-auto pb-6">
-          <div className="flex items-center justify-center gap-6 text-blue-700">
+          <div className="flex items-center justify-center gap-10 text-blue-700 text-[20px]">
             {/* Facebook */}
             <a href="#" aria-label="Facebook" className="hover:opacity-80">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.49 17.52 2 11.94 2 6.37 2 1.88 6.49 1.88 12.06c0 4.99 3.64 9.13 8.4 9.94v-7.03H7.9v-2.9h2.38V9.41c0-2.35 1.4-3.64 3.54-3.64 1.03 0 2.1.18 2.1.18v2.31h-1.18c-1.16 0-1.52.72-1.52 1.46v1.76h2.59l-.41 2.9h-2.18V22c4.76-.81 8.4-4.95 8.4-9.94z"/></svg>

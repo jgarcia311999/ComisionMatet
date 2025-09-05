@@ -34,32 +34,50 @@ export default function Horarios() {
         </header>
         {/* SEARCH BAR decorativa */}
         <div className="mt-3 border border-blue-600">
-          <div className="flex items-center justify-between text-[11px] uppercase tracking-wide px-2 py-1 text-blue-700">
+          <div className="flex items-center justify-between text-[16px] uppercase tracking-wide px-3 py-1 text-blue-700">
             <span>Search</span>
             <button aria-label="clear" className="font-medium">×</button>
           </div>
         </div>
+
+        <div className="mb-6"></div>
 
         {/* Lista de meses y eventos */}
         {Object.entries(grouped).map(([month, evs]) => (
           <section key={month} className="mb-6">
             <h3 className="text-lg font-bold text-blue-600 uppercase tracking-wide mb-3">{month}</h3>
             <ul>
-              {evs.map((ev) => (
-                <li key={ev.title + ev.date} className="border-t border-blue-600 first:border-t-0">
-                  <div className="block px-2 py-3 hover:bg-blue-50 transition-colors">
-                    <div className="text-[16px] leading-none font-semibold text-blue-700">{ev.title}</div>
-                    <div className="text-[13px] mt-1 text-blue-500">{ev.time}</div>
-                    <div className="text-[11px] mt-1 uppercase tracking-wide text-blue-400">{ev.location}</div>
-                  </div>
-                </li>
-              ))}
+              {evs.map((ev, index) => {
+                const day = new Date(ev.date).getDate();
+                const prevDay = index > 0 ? new Date(evs[index - 1].date).getDate() : null;
+                const showDay = index === 0 || day !== prevDay;
+                return (
+                  <li key={ev.title + ev.date} className="border-t border-blue-600 first:border-t-0">
+                    <div className="block px-2 py-3 hover:bg-blue-50 transition-colors">
+                      <div className="flex items-start gap-3">
+                        {showDay ? (
+                          <div className="flex-shrink-0 w-12 text-left">
+                            <div className="text-[48px] font-extrabold text-blue-600 leading-none">{day}</div>
+                          </div>
+                        ) : (
+                          <div className="flex-shrink-0 w-12" />
+                        )}
+                        <div>
+                          <div className="text-[22px] leading-none font-semibold text-blue-700">{ev.title}</div>
+                          <div className="text-[16px] mt-1 text-blue-500">{ev.time}</div>
+                          <div className="text-[14px] mt-1 uppercase tracking-wide text-blue-400">{ev.location}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
               <li className="border-t border-blue-600" />
             </ul>
           </section>
         ))}
         {/* Footer social icons */}
-        <footer className="mt-auto flex items-center justify-center gap-4 py-8 select-none">
+        <footer className="mt-auto flex items-center justify-center gap-10 py-8 select-none text-[20px]">
           <a
             href="https://instagram.com/matetcomision"
             target="_blank"
