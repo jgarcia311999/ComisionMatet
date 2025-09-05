@@ -27,54 +27,63 @@ export default function Horarios() {
 
   return (
     <main className="min-h-screen bg-white text-gray-900 font-sans flex justify-center">
-      <div className="w-full max-w-md px-4 py-6">
+      <div className="w-full max-w-sm px-4 pt-5 flex flex-col min-h-[100svh]">
         {/* Header */}
-        <header className="flex justify-between items-center mb-6">
-          <h2 className="text-sm font-semibold text-gray-500">Schedule</h2>
-          <button className="text-sm font-semibold text-red-600">Add Event</button>
+        <header className="select-none">
+          <h1 className="text-blue-600 font-extrabold uppercase tracking-widest leading-none text-[56px]">HORARIOS</h1>
         </header>
+        {/* SEARCH BAR decorativa */}
+        <div className="mt-3 border border-blue-600">
+          <div className="flex items-center justify-between text-[11px] uppercase tracking-wide px-2 py-1 text-blue-700">
+            <span>Search</span>
+            <button aria-label="clear" className="font-medium">×</button>
+          </div>
+        </div>
 
         {/* Lista de meses y eventos */}
         {Object.entries(grouped).map(([month, evs]) => (
           <section key={month} className="mb-6">
-            <h3 className="text-lg font-bold text-gray-400 capitalize mb-3">{month}</h3>
+            <h3 className="text-lg font-bold text-blue-600 uppercase tracking-wide mb-3">{month}</h3>
             <ul>
-              {evs.map((ev, index) => {
-                const day = new Date(ev.date).getDate();
-                const prev = index > 0 ? new Date(evs[index - 1].date).getDate() : null;
-                const showDay = prev !== day;
-
-                return (
-                  <li
-                    key={ev.title + ev.date}
-                    className={`flex items-center gap-4 ${showDay ? "mt-6" : "mt-2"}`}
-                  >
-                    {/* Día grande */}
-                    {showDay ? (
-                      <div className="flex items-center justify-center w-12">
-                        <span className="text-5xl font-extrabold text-black leading-none transform -rotate-90">
-                          {day}
-                        </span>
-                      </div>
-                    ) : (
-                      <div className="w-12" /> // espacio vacío para alinear
-                    )}
-
-                    {/* Detalles */}
-                    <div className="flex-1">
-                      <p className="text-xs text-gray-800">{ev.title}</p>
-                      <p className="font-semibold">{ev.time}</p>
-                      <p className="text-xs text-gray-400">{ev.location}</p>
-                    </div>
-
-                    {/* Icono flecha */}
-                    <div className="text-red-500 font-bold text-lg">›</div>
-                  </li>
-                );
-              })}
+              {evs.map((ev) => (
+                <li key={ev.title + ev.date} className="border-t border-blue-600 first:border-t-0">
+                  <div className="block px-2 py-3 hover:bg-blue-50 transition-colors">
+                    <div className="text-[16px] leading-none font-semibold text-blue-700">{ev.title}</div>
+                    <div className="text-[13px] mt-1 text-blue-500">{ev.time}</div>
+                    <div className="text-[11px] mt-1 uppercase tracking-wide text-blue-400">{ev.location}</div>
+                  </div>
+                </li>
+              ))}
+              <li className="border-t border-blue-600" />
             </ul>
           </section>
         ))}
+        {/* Footer social icons */}
+        <footer className="mt-auto flex items-center justify-center gap-4 py-8 select-none">
+          <a
+            href="https://instagram.com/matetcomision"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="text-blue-600 hover:text-blue-800 transition-colors"
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+              <rect width="18" height="18" x="3" y="3" rx="5" stroke="currentColor" strokeWidth="2"/>
+              <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+            </svg>
+          </a>
+          <a
+            href="mailto:matetcomision@gmail.com"
+            aria-label="Email"
+            className="text-blue-600 hover:text-blue-800 transition-colors"
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+              <rect width="18" height="14" x="3" y="5" rx="3" stroke="currentColor" strokeWidth="2"/>
+              <path d="M5 7l7 6 7-6" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </footer>
       </div>
     </main>
   );

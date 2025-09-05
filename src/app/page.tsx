@@ -1,184 +1,68 @@
+
 "use client";
-import React, { useMemo, useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { fiestas, type Fiesta } from "../data/fiestas";
 
 export default function Home() {
   const items = [
-    { title: "Ideas", },
-    { title: "Quehaceres", },
-    { title: "Horarios", href: "/horarios" },
-    { title: "Contactos", href: "/contactos" },
-    { title: "Próximamente", },
+    { label: "Ideas", href: "/ideas" },
+    { label: "Quehaceres", href: "/quehaceres" },
+    { label: "Horarios", href: "/horarios" },
+    { label: "Contactos", href: "/contactos" },
+    { label: "Próximamente", href: "/" },
   ];
-
-  // ---- Calendar state derived from fiestas ----
-  const uniqueDates = useMemo(
-    () => Array.from(new Set(fiestas.map((f) => f.date))).sort(),
-    []
-  );
-
-  const todayStr = useMemo(() => {
-    const now = new Date();
-    const tzOffset = now.getTimezoneOffset();
-    const localISO = new Date(now.getTime() - tzOffset * 60000).toISOString().slice(0, 10);
-    return localISO; // YYYY-MM-DD in local time
-  }, []);
-
-  const nextDates = useMemo(
-    () =>
-      Array.from(new Set(fiestas.map((f) => f.date)))
-        .sort()
-        .filter((d) => d >= todayStr)
-        .slice(0, 5),
-    [todayStr]
-  );
-
-  const [selectedDate, setSelectedDate] = useState<string>(
-    nextDates[0] || ""
-  );
-
-  const eventsForSelected = useMemo(
-    () =>
-      fiestas
-        .filter((f) => f.date === selectedDate)
-        .sort((a, b) => (a.time > b.time ? 1 : -1)),
-    [selectedDate]
-  );
-
-  const getWeekdayAbbr = (dateStr: string) => {
-    try {
-      const d = new Date(dateStr + "T00:00:00");
-      const wd = d.toLocaleDateString("es-ES", { weekday: "short" });
-      // Return two-letter style similar to mock (Mo, Tu, We, Th, Fr, Sa, Su)
-      return wd.slice(0, 2);
-    } catch {
-      return "";
-    }
-  };
-
-  const monthLabel = useMemo(() => {
-    if (!selectedDate) return "";
-    const d = new Date(selectedDate + "T00:00:00");
-    return d.toLocaleDateString("es-ES", { month: "long", year: "numeric" });
-  }, [selectedDate]);
 
   return (
     <main className="min-h-[100svh] bg-white text-gray-900 font-sans flex justify-center pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
-      <div className="w-full max-w-md px-4 py-6 flex flex-col">
-        {/* Header */}
-        <header className="px-4">
-          <h1 className="text-[47px] font-bold text-gray-900 leading-none">MTT. DASHBOARD</h1>
-          <div className="flex justify-between items-center text-xs text-gray-600 mt-1">
-            <span>
-              Comision de fiestas de Matet 2026
-              <br />
-              Matet, 12415
-            </span>
-            <a href="https://matet-es-fiesta.vercel.app/" className="underline text-red-600">
-              Visit web →
-            </a>
-          </div>
+      <div className="w-full max-w-sm px-4 pt-5 flex flex-col min-h-[100svh]">
+        {/* HEADER TITLE */}
+        <header className="select-none">
+          <h1 className="text-blue-600 font-extrabold uppercase tracking-widest leading-none text-[56px]">MATET</h1>
         </header>
 
-        <section className="mt-4 overflow-hidden">
-          <div className="flex space-x-4 overflow-x-auto pb-4">
-            {items.map((item, idx) => {
-              const colors = [
-                "bg-pink-100",
-                "bg-blue-100",
-                "bg-green-100",
-                "bg-yellow-100",
-                "bg-purple-100"
-              ];
-              const color = colors[idx % colors.length];
-              return (
-                <div key={item.title} className={`flex-shrink-0 w-40 h-40 border rounded-lg overflow-hidden ${color}`}>
-                  <Link href={item.href || "#"} className="w-full h-full flex flex-col justify-center items-center hover:bg-opacity-80 transition-colors">
-                    <div className="text-lg font-semibold text-center">{item.title}</div>
-                  </Link>
-                </div>
-              );
-            })}
+        {/* SEARCH BAR (fake, como en el mock) */}
+        <div className="mt-3 border border-blue-600">
+          <div className="flex items-center justify-between text-[11px] uppercase tracking-wide px-2 py-1 text-blue-700">
+            <span>Search</span>
+            <button aria-label="clear" className="font-medium">×</button>
           </div>
-          <div className="text-center text-xs py-2 text-gray-500">
-            <a href="#" className="underline underline-offset-2">
-              See all →
+        </div>
+
+        {/* MENU LIST */}
+        <nav className="mt-2">
+          <ul>
+            {items.map((it) => (
+              <li key={it.label} className="border-t border-blue-600 first:border-t-0">
+                <Link
+                  href={it.href}
+                  className="block w-full px-2 py-3 uppercase tracking-wide text-blue-700 font-semibold hover:bg-blue-50"
+                >
+                  {it.label}
+                </Link>
+              </li>
+            ))}
+            {/* cierre inferior */}
+            <li className="border-t border-blue-600" />
+          </ul>
+        </nav>
+
+        {/* FOOTER ICONS */}
+        <footer className="mt-auto pb-6">
+          <div className="flex items-center justify-center gap-6 text-blue-700">
+            {/* Facebook */}
+            <a href="#" aria-label="Facebook" className="hover:opacity-80">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.49 17.52 2 11.94 2 6.37 2 1.88 6.49 1.88 12.06c0 4.99 3.64 9.13 8.4 9.94v-7.03H7.9v-2.9h2.38V9.41c0-2.35 1.4-3.64 3.54-3.64 1.03 0 2.1.18 2.1.18v2.31h-1.18c-1.16 0-1.52.72-1.52 1.46v1.76h2.59l-.41 2.9h-2.18V22c4.76-.81 8.4-4.95 8.4-9.94z"/></svg>
+            </a>
+            {/* YouTube */}
+            <a href="#" aria-label="YouTube" className="hover:opacity-80">
+              <svg width="24" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.51 3.5 12 3.5 12 3.5s-7.51 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.89.6 9.4.6 9.4.6s7.51 0 9.4-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.8 31 31 0 0 0-.5-5.8zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+            {/* Instagram */}
+            <a href="#" aria-label="Instagram" className="hover:opacity-80">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.75-.75a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
             </a>
           </div>
-        </section>
-
-        {/* Calendar */}
-        <section className="mt-6">
-          <div className="rounded-3xl border shadow-sm overflow-hidden bg-white">
-            {/* Top bar: days & controls */}
-            <div className="px-4 pt-4 text-sm font-semibold text-gray-900 capitalize text-center">
-              {monthLabel}
-            </div>
-            <div className="px-6 sm:px-8">
-              <div className="flex items-center justify-center text-xs text-gray-500">
-                {/* Próximos 5 días con eventos */}
-                <div className="flex items-center gap-4">
-                  {nextDates.map((d) => (
-                    <button
-                      key={d}
-                      onClick={() => setSelectedDate(d)}
-                      className="relative flex items-center gap-1"
-                    >
-                      <span className="font-medium text-gray-900">{getWeekdayAbbr(d)}</span>
-                      <span className={
-                        d === selectedDate ? "text-gray-900 font-semibold" : ""
-                      }>
-                        {parseInt(d.split("-")[2] || "", 10)}
-                      </span>
-                      {d === selectedDate && (
-                        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-gray-900 rounded-full"></span>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Timeline */}
-            <div className="grid grid-cols-[3rem,1fr] gap-x-3 p-4">
-              {eventsForSelected.length === 0 && (
-                <div className="col-span-2 text-xs text-gray-500 py-6 text-center">
-                  No hay eventos para esta fecha.
-                </div>
-              )}
-
-              {eventsForSelected.map((ev: Fiesta, idx) => (
-                <React.Fragment key={`${ev.date}-${ev.time}-${idx}`}>
-                  <div className="text-xs text-gray-500 pt-2">{ev.time}</div>
-                  <div className="relative pb-4">
-                    <div className={`rounded-2xl bg-green-100 text-gray-900 p-3 pr-12 shadow-inner ${
-                      ev.provisional ? "border-2 border-dashed border-gray-400" : ""
-                    }`}>
-                      <div className="text-sm font-semibold leading-tight">{ev.title}</div>
-                      <div className="text-[11px] mt-1 text-gray-600 line-clamp-2">{ev.description}</div>
-                      <div className="text-[11px] mt-1 text-gray-600">{ev.location}</div>
-                    </div>
-                    {/* attendees placeholders (initials or circles) */}
-                    {ev.attendees && ev.attendees.length > 0 && (
-                      <div className="absolute top-2 right-2 flex -space-x-2">
-                        {ev.attendees.slice(0, 2).map((a, i) => (
-                          <span
-                            key={i}
-                            title={a}
-                            className="w-6 h-6 rounded-full bg-gray-300 border grid place-items-center text-[10px] text-gray-700"
-                          >
-                            {a.trim().charAt(0).toUpperCase()}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-        </section>
+        </footer>
       </div>
     </main>
   );
