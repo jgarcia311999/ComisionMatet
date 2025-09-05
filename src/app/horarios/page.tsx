@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { fiestas } from "@/data/fiestas";
+import { fiestas } from "../../data/fiestas";
 
 export default function Horarios() {
   // helpers
